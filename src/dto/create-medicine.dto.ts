@@ -8,5 +8,4 @@ export class CreateMedicineDto {
   to: Date;
   importance: string;
   isPresciptionOnly: boolean;
-  user: User;
 }
