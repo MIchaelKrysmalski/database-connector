@@ -36,8 +36,6 @@ export class UserService {
     const user = await this.userRepository.findOne({
       username: loginDto.username,
     });
-    console.log(user);
-    if (user.password == loginDto.password) return true;
-    return false;
+    return user;
   }
 }

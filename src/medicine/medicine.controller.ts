@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateMedicineDto } from 'src/dto/create-medicine.dto';
 import { UpdateMedicineDto } from 'src/dto/update-medicine.dto';
 import { Medicine } from 'src/entity/medicine.entity';
@@ -23,12 +31,13 @@ export class MedicineController {
     return medicine;
   }
 
-  @Post(':id')
-  update(
-    @Param('id') id: string,
+  @Patch(':id')
+  async update(
+    @Param('id') id: number,
     @Body() updateMedicineDto: UpdateMedicineDto,
   ) {
-    return null;
+    const medicine = await this.medicineService.update(id, updateMedicineDto);
+    return medicine;
   }
   @Delete(':id')
   delete(@Param('id') id: number) {

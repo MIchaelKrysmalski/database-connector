@@ -28,9 +28,7 @@ export class UserController {
     return user;
   }
   @Post('/login')
-  async checkUsernameAndPassword(
-    @Body() loginDto: LoginUserDto,
-  ): Promise<boolean> {
+  async checkUsernameAndPassword(@Body() loginDto: LoginUserDto) {
     const result = await this.userService.checkUsernameAndPassword(loginDto);
     return result;
   }

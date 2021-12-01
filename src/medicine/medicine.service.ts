@@ -1,5 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateMedicineDto } from 'src/dto/create-medicine.dto';
+import { UpdateMedicineDto } from 'src/dto/update-medicine.dto';
 import { Medicine } from 'src/entity/medicine.entity';
 import { User } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
@@ -25,6 +26,19 @@ export class MedicineService {
     const user = await this.userRepository.findOne(id);
     medicine.user = user;
     this.medicineRepository.save(medicine);
+    return medicine;
+  }
+  async update(id: number, updateMedicineDto: UpdateMedicineDto) {
+    const medicine = await this.getById(id);
+    medicine.name = updateMedicineDto.name;
+    medicine.count = updateMedicineDto.count;
+    medicine.from = updateMedicineDto.from;
+    medicine.to = updateMedicineDto.to;
+    medicine.importance = updateMedicineDto.importance;
+    medicine.usagePerDay = updateMedicineDto.usagePerDay;
+    medicine.isPresciptionOnly = updateMedicineDto.isPresciptionOnly;
+
+    this.userRepository.save(medicine);
     return medicine;
   }
   async getById(id: number): Promise<Medicine> {
