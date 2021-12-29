@@ -33,9 +33,12 @@ export class UserService {
     await this.userRepository.delete(id);
   }
   async checkUsernameAndPassword(loginDto: LoginUserDto) {
-    const user = await this.userRepository.findOne({
-      username: loginDto.username,
-    });
+    const user = await this.userRepository.findOne(
+      {
+        username: loginDto.username,
+      },
+      { relations: ['medicine'] },
+    );
     return user;
   }
 }
